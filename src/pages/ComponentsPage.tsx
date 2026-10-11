@@ -232,7 +232,7 @@ export const ComponentsPage: React.FC = () => {
           <div>
             <SectionHeader
               badge="Component Prototype Demonstration"
-              badgeVariant="purple"
+              badgeVariant="green"
               title={`Live Interactive Demonstration: ${selectedComp.shortTitle}`}
               subtitle="Interact with the illustrative web demo reflecting this specific research component's heuristics and behavioral logic."
             />

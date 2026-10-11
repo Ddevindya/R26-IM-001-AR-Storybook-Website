@@ -69,7 +69,7 @@ export const FutureVisionPage: React.FC = () => {
         <section className="space-y-10">
           <SectionHeader
             badge="Primary School Adoption"
-            badgeVariant="purple"
+            badgeVariant="green"
             title="From Lab Research to Classroom Reality"
             subtitle="How the cyber-physical AR storybook concept can be deployed in everyday primary science classrooms."
           />
@@ -146,7 +146,7 @@ export const FutureVisionPage: React.FC = () => {
         <section className="space-y-8">
           <SectionHeader
             badge="Commercial Potential"
-            badgeVariant="purple"
+            badgeVariant="green"
             title="Partnership & Licensing Opportunities"
             subtitle="Opening doors to collaboration with educational publishers, hardware makers, and international school networks."
           />

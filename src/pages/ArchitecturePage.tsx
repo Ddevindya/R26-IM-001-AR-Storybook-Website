@@ -113,7 +113,7 @@ export const ArchitecturePage: React.FC = () => {
         <section className="space-y-8">
           <SectionHeader
             badge="Technology Stack Matrix"
-            badgeVariant="purple"
+            badgeVariant="green"
             title="Production Software & Hardware Specifications"
             subtitle="The verified tools, runtimes, and engineering frameworks powering the R26-IM-001 research prototype."
           />
