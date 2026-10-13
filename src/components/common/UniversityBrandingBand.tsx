@@ -1,56 +1,69 @@
+
 import React from 'react';
-import { School, Sparkles } from 'lucide-react';
 import { PROJECT_INFO } from '../../data/projectData';
 
 export const UniversityBrandingBand: React.FC = () => {
   return (
-    <section className="w-full bg-[#F7FBF8] border-y border-emerald-900/10 py-5 sm:py-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 text-center md:text-left">
-          {/* Left: Project Identifier & Category */}
-          <div className="flex items-center gap-2.5">
-            <span className="px-2.5 py-1 rounded-md bg-[#DCFCE7] text-[#166534] text-xs font-mono font-bold tracking-wider border border-emerald-300/60">
+    <section className="w-full border-y border-emerald-900/10 bg-[#F7FBF8]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div className="flex flex-col items-center justify-between gap-5 py-5 md:flex-row md:gap-6 md:py-4">
+
+          {/* Project Information */}
+          <div className="flex shrink-0 flex-col items-center gap-1.5 md:items-start">
+
+            <span className="rounded-lg border border-emerald-200 bg-[#DCFCE7] px-3 py-1 text-xs font-extrabold tracking-wide text-[#166534]">
               {PROJECT_INFO.id}
             </span>
-            <span className="text-xs font-bold uppercase tracking-wider text-[#172B26]/80">
-              Undergraduate Research Exhibition
+
+            <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#4A6B61]">
+              Undergraduate Research 2026
             </span>
+
           </div>
 
-          {/* Center: Department & Faculty */}
-          <div className="flex items-center gap-2 text-xs font-medium text-[#4A6B61]">
-            <span className="font-semibold text-[#172B26]">
+          {/* Department Information */}
+          <div className="flex min-w-0 flex-col items-center text-center">
+
+            <span className="text-sm font-bold text-[#172B26]">
               Department of Interactive Media
             </span>
-            <span className="hidden sm:inline text-slate-300">•</span>
-            <span className="hidden sm:inline text-[#4A6B61]">
+
+            <span className="mt-1 text-xs text-[#4A6B61]">
               Faculty of Computing
             </span>
+
           </div>
 
-          {/* Right: Authentic SLIIT Crest & Institutional Attribution (Original Navy & Orange Colors) */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs">
-              {/* Authentic SLIIT Logo Crest Representation in Original Brand Colors (#002B49 Navy & #E87722 Orange) */}
-              <svg className="w-6 h-6 shrink-0" viewBox="0 0 36 36" fill="none" aria-label="SLIIT Official Logo">
-                <rect width="36" height="36" rx="8" fill="#002B49" />
-                {/* SLIIT Grid / Crest Blocks in Orange and White */}
-                <rect x="7" y="7" width="9" height="9" rx="2" fill="#E87722" />
-                <rect x="20" y="7" width="9" height="9" rx="2" fill="#FFFFFF" />
-                <rect x="7" y="20" width="9" height="9" rx="2" fill="#FFFFFF" />
-                <rect x="20" y="20" width="9" height="9" rx="2" fill="#E87722" />
-                <circle cx="18" cy="18" r="2.5" fill="#002B49" />
-              </svg>
-              <div className="text-left">
-                <span className="text-[11px] font-black tracking-tight text-[#002B49] block leading-none">
-                  SLIIT
-                </span>
-                <span className="text-[9px] font-semibold text-[#64748B] tracking-tight block">
-                  Sri Lanka Institute of Information Technology
-                </span>
-              </div>
+          {/* Official Institutional Logos */}
+          <div className="flex shrink-0 items-center justify-center gap-4">
+
+            {/* Interactive Media Logo */}
+            <div className="flex h-[64px] w-[112px] items-center justify-center rounded-xl border border-emerald-100 bg-white px-3 shadow-sm sm:w-[120px]">
+
+              <img
+                src="/interactive-media-logo.png"
+                alt="SLIIT Interactive Media Logo"
+                className="max-h-[49px] max-w-full object-contain"
+                loading="lazy"
+              />
+
             </div>
+
+            {/* Official SLIIT Logo */}
+            <div className="flex h-[64px] w-[112px] items-center justify-center rounded-xl border border-emerald-100 bg-white px-3 shadow-sm sm:w-[120px]">
+
+              <img
+                src="/sliit-logo.png"
+                alt="SLIIT Official Logo"
+                className="max-h-[49px] max-w-full object-contain"
+                loading="lazy"
+              />
+
+            </div>
+
           </div>
+
         </div>
       </div>
     </section>

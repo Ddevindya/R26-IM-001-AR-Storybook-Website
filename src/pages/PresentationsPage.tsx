@@ -1,212 +1,194 @@
-import React, { useState } from 'react';
-import { 
-  Presentation, 
-  Download, 
-  Eye, 
-  Calendar, 
-  Users, 
-  Clock, 
-  FileCheck, 
-  X,
-  Maximize2,
-  FileCode,
-  Info
-} from 'lucide-react';
-import { RESEARCH_PRESENTATIONS } from '../data/presentationsData';
-import { SectionHeader } from '../components/common/SectionHeader';
-import { Badge } from '../components/common/Badge';
-import { PresentationRecord } from '../types';
+import React, { useEffect, useState } from 'react';
+import { Download, ExternalLink, FileText, Maximize2, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+
+type PresentationItem = {
+  id: 'proposal' | 'pp1' | 'pp2';
+  code: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  pages?: number;
+  pdfUrl?: string;
+  coverUrl: string;
+};
+
+// Public assets are located in public/presentations/.
+const presentations: PresentationItem[] = [
+  {
+    id: 'proposal',
+    code: 'PP',
+    title: 'Proposal Presentation',
+    subtitle: 'Initial Research Proposal',
+    description: 'An introduction to our research problem, objectives, and proposed AR storybook framework.',
+    coverUrl: '/presentations/proposal-presentation-cover.png',
+    // Add pdfUrl here only when the actual proposal PDF is available.
+  },
+  {
+    id: 'pp1',
+    code: 'PP1',
+    title: 'Progress Presentation 1',
+    subtitle: 'Research Development & Component Progress',
+    description: 'Project progress, research problem, component contributions, prototype development, and technical approaches.',
+    pdfUrl: '/presentations/progress-presentation-1.pdf',
+    coverUrl: '/presentations/progress-presentation-1-cover.png',
+    pages: 38,
+  },
+  {
+    id: 'pp2',
+    code: 'PP2',
+    title: 'Progress Presentation 2',
+    subtitle: 'Architecture, Integration & Research Progress',
+    description: 'Research gaps, objectives, integrated system architecture, proposed solutions, and potential educational impact.',
+    pdfUrl: '/presentations/progress-presentation-2.pdf',
+    coverUrl: '/presentations/progress-presentation-2-cover.png',
+    pages: 7,
+  },
+];
 
 export const PresentationsPage: React.FC = () => {
-  const [selectedPresentation, setSelectedPresentation] = useState<PresentationRecord | null>(null);
+  const [preview, setPreview] = useState<PresentationItem | null>(null);
+
+  useEffect(() => {
+    if (!preview) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setPreview(null);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [preview]);
 
   return (
-    <div className="min-h-screen bg-white pt-28 pb-20">
-      {/* Header */}
-      <div className="bg-gradient-to-b from-[#DCFCE7]/50 via-[#F7FBF8] to-white py-14 sm:py-20 border-b border-emerald-900/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-2 mb-3">
-              <Badge variant="forest" size="md">
-                Evaluation Presentations
-              </Badge>
-              <span className="text-xs font-mono text-slate-500">
-                SLIIT Academic Milestones
-              </span>
-            </div>
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#172B26] tracking-tight leading-tight">
-              Research Presentations
-            </h1>
-            <p className="mt-4 text-base sm:text-lg text-[#4A6B61] leading-relaxed">
-              Official slide decks and evaluation defenses presented before the SLIIT Academic Review Board, covering our proposal defense, progress reviews, and integrated system evaluations.
-            </p>
-          </div>
+    <div className="min-h-screen bg-white pb-20 pt-24 text-[#172B26]">
+      <section className="border-b border-[#DCE9DF] bg-gradient-to-b from-[#F1FAF3] to-white">
+        <div className="mx-auto max-w-7xl px-4 pb-14 pt-12 sm:px-6 sm:pb-16 sm:pt-16 lg:px-8">
+          <nav aria-label="Breadcrumb" className="mb-10 text-sm text-[#527363]">
+            <Link to="/" className="hover:text-[#166534] hover:underline">Home</Link>
+            <span aria-hidden="true" className="mx-3">/</span>
+            <span className="font-medium text-[#166534]">Presentations</span>
+          </nav>
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-[#15803D]">
+            R26-IM-001 · Research Presentation Materials
+          </p>
+          <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight sm:text-5xl lg:text-6xl">
+            The research, presented.
+          </h1>
+          <p className="mt-5 max-w-3xl text-base leading-relaxed text-[#4A6B61] sm:text-lg">
+            Explore the proposal and progress presentations for our Augmented Reality Storybook
+            research on plant growth understanding and environmental stewardship.
+          </p>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 space-y-12">
-        {/* Three-Column Card Grid (PP, PP1, PP2) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {RESEARCH_PRESENTATIONS.map((pres) => (
-            <div
-              key={pres.id}
-              className="rounded-3xl bg-white border border-emerald-900/10 hover:border-[#166534]/40 hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group"
+      <section aria-label="Research presentations" className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
+          {presentations.map((item) => (
+            <article
+              key={item.id}
+              className="group flex h-full flex-col overflow-hidden rounded-3xl border border-[#DCE9DF] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#86C8A0] hover:shadow-xl"
             >
-              <div>
-                {/* Top Cover Visual Stage */}
-                <div className="relative h-56 bg-gradient-to-br from-[#DCFCE7]/60 via-[#F7FBF8] to-[#DCFCE7]/40 p-5 flex flex-col justify-between border-b border-emerald-100 overflow-hidden">
-                  <div className="flex items-center justify-between z-10">
-                    <span className="px-2.5 py-1 rounded-lg bg-[#166534] text-white text-[11px] font-mono font-bold shadow-2xs">
-                      {pres.code}
-                    </span>
-                    <Badge variant="mint" size="sm">
-                      {pres.format}
-                    </Badge>
-                  </div>
+              <div className="relative aspect-[16/10] overflow-hidden bg-[#E8F4EC]">
+                <img
+                  src={item.coverUrl}
+                  alt={`${item.title} cover illustration`}
+                  className="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.025]"
+                  loading="lazy"
+                />
+                <span className="absolute left-4 top-4 rounded-lg bg-[#166534] px-3 py-1.5 text-xs font-bold text-white shadow-md">
+                  {item.code}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setPreview(item)}
+                  className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-lg bg-white px-3 py-2 text-xs font-semibold text-[#172B26] shadow-md transition-colors hover:bg-[#DCFCE7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#166534]"
+                  aria-label={`Preview cover of ${item.title}`}
+                >
+                  <Maximize2 className="h-3.5 w-3.5" aria-hidden="true" /> Preview cover
+                </button>
+              </div>
 
-                  {/* Representative Slide Cover Visual */}
-                  <div className="flex flex-col items-center justify-center my-auto text-center z-10">
-                    <div className="w-14 h-14 rounded-2xl bg-white shadow-md flex items-center justify-center text-2xl text-[#166534] mb-2 group-hover:scale-105 transition-transform">
-                      <Presentation className="w-7 h-7" />
-                    </div>
-                    <span className="text-[11px] font-mono font-bold text-[#166534]">
-                      R26-IM-001 • SLIIT 2026
-                    </span>
-                    <span className="text-xs font-bold text-[#172B26] line-clamp-1 mt-0.5">
-                      {pres.title}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-[10px] text-[#4A6B61] z-10 bg-white/80 backdrop-blur-xs px-2.5 py-1 rounded-md">
-                    <span>{pres.date}</span>
-                    <button
-                      onClick={() => setSelectedPresentation(pres)}
-                      className="text-[#166534] font-bold hover:underline flex items-center gap-1 cursor-pointer"
-                    >
-                      <Maximize2 className="w-3 h-3" />
-                      Preview Cover
-                    </button>
-                  </div>
-                </div>
-
-                {/* Body Details */}
-                <div className="p-6 space-y-3">
-                  <div>
-                    <h3 className="text-base font-bold text-[#172B26] group-hover:text-[#166534] transition-colors leading-snug">
-                      {pres.title}
-                    </h3>
-                    <span className="text-xs font-semibold text-[#22A06B] block mt-0.5">
-                      {pres.subtitle}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-[#4A6B61] leading-relaxed">
-                    {pres.description}
-                  </p>
-
-                  <div className="pt-2 border-t border-slate-100 space-y-1">
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block">
-                      Presenting Researchers
-                    </span>
-                    <div className="flex flex-wrap gap-1">
-                      {pres.presenters.map((p, idx) => (
-                        <span
-                          key={idx}
-                          className="text-[10px] font-medium text-slate-600 bg-[#F7FBF8] px-2 py-0.5 rounded border border-slate-200/60"
-                        >
-                          {p.split(' ')[0]} {p.split(' ')[1]}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+              <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-[#15803D]">
+                  {item.code} · PRESENTATION
+                </p>
+                <h2 className="mt-3 text-xl font-extrabold leading-snug tracking-tight text-[#172B26]">
+                  {item.title}
+                </h2>
+                <p className="mt-1 text-sm font-medium text-[#278357]">{item.subtitle}</p>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-[#527363]">{item.description}</p>
+                <div className="mt-5 flex items-center gap-2 border-t border-[#E4EEE7] pt-4 text-xs text-[#527363]">
+                  <FileText className="h-4 w-4" aria-hidden="true" />
+                  {item.pages ? `${item.pages} pages · Research team · PDF` : 'Research team · Cover preview'}
                 </div>
               </div>
 
-              {/* Card Footer Actions */}
-              <div className="p-4 px-6 bg-[#F7FBF8] border-t border-emerald-900/10 flex items-center justify-between">
-                <span className="text-[11px] font-medium text-slate-500">
-                  Status: <strong className="text-[#166534]">{pres.status}</strong>
-                </span>
-
-                {pres.isAvailable ? (
-                  <a
-                    href={pres.downloadUrl || '#'}
-                    download
-                    onClick={(e) => {
-                      e.preventDefault();
-                      alert(`Downloading slide deck: ${pres.title} (${pres.fileSize || 'PowerPoint'}).`);
-                    }}
-                    className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#166534] hover:bg-[#14532D] text-white shadow-2xs transition-all flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download</span>
-                  </a>
+              <div className="flex flex-wrap items-center gap-2 border-t border-[#E4EEE7] bg-[#F7FBF8] px-6 py-4">
+                {item.pdfUrl ? (
+                  <>
+                    <a
+                      href={item.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-xl border border-[#B8D8C2] bg-white px-4 py-2.5 text-sm font-semibold text-[#166534] transition-colors hover:bg-[#E8F5EC]"
+                    >
+                      <ExternalLink className="h-4 w-4" aria-hidden="true" /> Open PDF
+                    </a>
+                    <a
+                      href={item.pdfUrl}
+                      download
+                      className="inline-flex items-center gap-2 rounded-xl bg-[#166534] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#14532D]"
+                    >
+                      <Download className="h-4 w-4" aria-hidden="true" /> Download PDF
+                    </a>
+                  </>
                 ) : (
-                  <span className="text-xs font-semibold text-slate-400 flex items-center gap-1">
-                    <Clock className="w-3 h-3" />
-                    Coming soon
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => setPreview(item)}
+                    className="inline-flex items-center gap-2 rounded-xl border border-[#B8D8C2] bg-white px-4 py-2.5 text-sm font-semibold text-[#166534] transition-colors hover:bg-[#E8F5EC]"
+                  >
+                    <Maximize2 className="h-4 w-4" aria-hidden="true" /> View Proposal Cover
+                  </button>
                 )}
               </div>
-            </div>
+            </article>
           ))}
         </div>
+      </section>
 
-        {/* Developer Guidance Box */}
-        <section className="p-6 sm:p-7 rounded-3xl bg-[#F7FBF8] border border-emerald-900/10 text-xs text-[#4A6B61] space-y-2">
-          <div className="flex items-center gap-2 font-bold text-[#172B26]">
-            <Info className="w-4 h-4 text-[#166534]" />
-            <span>Presentations Asset Placement Notice</span>
-          </div>
-          <p className="leading-relaxed">
-            Actual slide files (PowerPoint <code>.pptx</code> or <code>.pdf</code>) can be stored in <code>public/presentations/</code> and cover thumbnail images in <code>public/images/presentations/</code>. Entries and availability toggles are configured in <code>src/data/presentationsData.ts</code>.
-          </p>
-        </section>
-      </div>
-
-      {/* Cover Modal */}
-      {selectedPresentation && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#172B26]/60 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-100 overflow-hidden">
-            <button
-              onClick={() => setSelectedPresentation(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
-              aria-label="Close presentation cover modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <span className="text-xs font-bold font-mono text-[#166534] block mb-1">
-              {selectedPresentation.code} • SLIIT Faculty of Computing
-            </span>
-            <h3 className="text-lg font-bold text-[#172B26] mb-1">
-              {selectedPresentation.title}
-            </h3>
-            <p className="text-xs text-[#22A06B] font-semibold mb-4">
-              {selectedPresentation.subtitle}
-            </p>
-
-            <div className="h-44 rounded-2xl bg-gradient-to-br from-[#DCFCE7] via-[#F7FBF8] to-[#DCFCE7] flex flex-col items-center justify-center mb-4 text-center p-4 border border-emerald-100">
-              <Presentation className="w-12 h-12 text-[#166534] mb-2" />
-              <p className="text-xs font-bold text-[#172B26]">
-                Design and Evaluation of an Augmented Reality Storybook
+      {preview && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#0F241A]/75 p-4 backdrop-blur-sm"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setPreview(null);
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={`${preview.title} cover preview`}
+            className="relative w-full max-w-4xl overflow-hidden rounded-2xl bg-white p-4 shadow-2xl sm:p-6"
+          >
+            <div className="mb-4 pr-12">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#15803D]">
+                {preview.code} · Cover Preview
               </p>
-              <span className="text-[10px] text-[#4A6B61] mt-1 font-mono">
-                Project ID: R26-IM-001 • Date: {selectedPresentation.date}
-              </span>
+              <h2 className="mt-1 text-lg font-bold text-[#172B26]">{preview.title}</h2>
             </div>
-
-            <p className="text-xs text-[#4A6B61] leading-relaxed mb-6">
-              {selectedPresentation.description}
-            </p>
-
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setSelectedPresentation(null)}
-                className="px-4 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200"
-              >
-                Close Preview
-              </button>
+            <button
+              type="button"
+              onClick={() => setPreview(null)}
+              aria-label="Close cover preview"
+              className="absolute right-4 top-4 rounded-full bg-[#EAF5ED] p-2 text-[#166534] hover:bg-[#DCFCE7]"
+            >
+              <X className="h-5 w-5" aria-hidden="true" />
+            </button>
+            <div className="max-h-[70vh] overflow-auto rounded-lg">
+              <img
+                src={preview.coverUrl}
+                alt={`${preview.title} cover enlarged`}
+                className="max-h-[70vh] w-full object-contain"
+              />
             </div>
           </div>
         </div>

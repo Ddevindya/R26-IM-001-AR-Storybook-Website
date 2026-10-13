@@ -1,0 +1,59 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="720" height="640"
+     viewBox="0 0 720 640"
+     fill="none">
+
+  <defs>
+    <linearGradient id="leafGreen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#C5EBC5"/>
+      <stop offset="100%" stop-color="#77BF91"/>
+    </linearGradient>
+    <linearGradient id="leafMint" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E5F7E7"/>
+      <stop offset="100%" stop-color="#A4DDB8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Soft background curves -->
+  <ellipse cx="625" cy="275" rx="270" ry="300"
+           fill="#CDEED5" opacity="0.28"/>
+  <ellipse cx="700" cy="470" rx="320" ry="230"
+           fill="#B9E6C6" opacity="0.16"/>
+
+  <!-- Botanical branch -->
+  <g stroke="#76B68C" stroke-width="3"
+     stroke-linecap="round" opacity="0.55">
+    <path d="M700 550 C600 440 570 320 515 120"/>
+    <path d="M630 455 C560 420 495 400 425 360"/>
+    <path d="M595 370 C650 310 675 245 690 170"/>
+    <path d="M550 285 C490 240 445 200 410 140"/>
+  </g>
+
+  <!-- Translucent botanical leaves -->
+  <g opacity="0.7">
+    <path d="M515 120 C445 72 437 4 485 0
+             C550 30 558 88 515 120Z"
+          fill="url(#leafMint)"/>
+
+    <path d="M550 285 C466 266 430 198 452 145
+             C530 153 572 214 550 285Z"
+          fill="url(#leafGreen)"/>
+
+    <path d="M595 370 C606 290 663 244 714 248
+             C714 326 663 367 595 370Z"
+          fill="url(#leafMint)"/>
+
+    <path d="M630 455 C535 475 468 437 445 382
+             C535 350 603 385 630 455Z"
+          fill="url(#leafGreen)"/>
+
+    <path d="M425 360 C354 352 310 300 317 254
+             C396 257 438 298 425 360Z"
+          fill="url(#leafMint)"/>
+
+    <path d="M690 170 C629 119 640 48 699 15
+             C747 73 739 133 690 170Z"
+          fill="url(#leafGreen)"/>
+  </g>
+</svg>
